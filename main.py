@@ -22,6 +22,8 @@ def download_file(url, base_dir='download_dir'):
         print('下载完成:' + url)
     except urllib.error.HTTPError as e:
         print(f"下载失败: {e}")
+    except Exception as e:
+        print(f"下载失败: {e}")
 
 
 files = []
@@ -50,6 +52,6 @@ with sync_playwright() as playwright:
 
     page.route("**/*", handle_request)
 
-    page.goto(url)
+    page.goto(url, timeout=600 * 1000)
 
     page.wait_for_timeout(1000 * 60 * 60 * 24)
